@@ -11,9 +11,9 @@ An IsaacLab-based repository for **muscle-activation control** and **muscle/skel
 - IsaacLab compatibility: designed to plug into existing IsaacLab workflows.
 
 ## Demos
-
+MotionTracking
 ![Backflip demo](assets/2.gif)
-
+GenerativeMotion(DiffusionForcing)
 ![Diffusion-guided walking](assets/3.gif)
 
 
