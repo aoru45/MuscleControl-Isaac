@@ -1,0 +1,81 @@
+# @package _global_
+
+num_envs: 256
+
+agent:
+  _target_: protomotions.agents.fb_cpr.agent.FBCPRAgent
+  _recursive_: False
+  config:
+    # Model configuration
+    model:
+      _target_: protomotions.agents.fb_cpr.model.FBCPRModel
+      _recursive_: False
+      z_dim: 64
+      normalize_obs: true
+
+    # FB-CPR specific training parameters
+    fbcpr_config:
+      # Learning rates
+      lr_forward: 1.0e-4
+      lr_backward: 1.0e-4
+      lr_critic: 1.0e-4
+      lr_discriminator: 1.0e-4
+      lr_actor: 1.0e-4
+      weight_decay: 0.0
+
+      # Network update parameters
+      fb_target_tau: 0.005
+      critic_target_tau: 0.005
+
+      # FB loss parameters
+      ortho_coef: 1.0
+      fb_pessimism_penalty: 0.5
+
+      # Critic loss parameters
+      critic_pessimism_penalty: 0.5
+
+      # Actor loss parameters
+      actor_pessimism_penalty: 0.5
+      reg_coeff: 1.0
+      scale_reg: true
+
+      # Discriminator parameters
+      grad_penalty_discriminator: 10.0
+      weight_decay_discriminator: 0.0
+
+      # Z sampling parameters
+      expert_asm_ratio: 0.0
+      train_goal_ratio: 0.5
+      relabel_ratio: 1.0
+
+      # Other parameters
+      stddev_clip: 0.3
+      q_loss_coef: 0.0
+      clip_grad_norm: 0.0
+      batch_size: 256
+      discount: 0.99
+
+    # PPO parameters (inherited from PPO base class)
+    num_steps: 32
+    tau: 0.95
+    gamma: 0.99
+    e_clip: 0.2
+    clip_critic_loss: true
+    gradient_clip_val: 1.0
+    fail_on_bad_grads: false
+    check_grad_mag: true
+    bounds_loss_coef: 0
+    normalize_values: true
+    normalized_val_clamp_value: 5
+    normalize_advantage: true
+    batch_size: 256
+    task_reward_w: 1.0
+    num_mini_epochs: 4
+    max_eval_steps: null
+    eval_metrics_every: 500
+    eval_metric_keys: []
+    training_early_termination: null
+    num_games: null
+    manual_save_every: 50
+    max_epochs: ${eval:${training_max_steps}//${ngpu}//${num_envs}//${.num_steps}}
+    extra_inputs: null

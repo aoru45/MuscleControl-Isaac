@@ -1,0 +1,91 @@
+# @package _global_
+
+defaults:
+  - /env/mimic_dual
+  - /agent/mimic/agent_dual_supervised
+  - /agent/ppo/models/transformer_actor
+  - /agent/ppo/models/mlp_critic_large
+
+  - /agent/mimic/models/transformer_actor_target_pose
+  - /agent/mimic/models/mlp_critic_target_pose
+
+  # Training strategy options
+  - /agent/mimic/options/early_termination_backflip_curriculum  # Curriculum
+  - /agent/mimic/options/reward_backflip  # Backflip reward
+
+env:
+  config:
+    mimic_phase_obs:
+      enabled: True
+    mimic_target_pose:
+      enabled: True
+      type: max-coords-future-rel
+      with_time: true
+      num_future_steps: 15
+
+robot:
+  control:
+    control_type: proportional
+    use_biased_controller: False
+    map_actions_to_pd_range: True
+
+agent:
+  config:
+    use_student_for_eval: true
+    enable_curriculum_callback: true
+
+    # Add phase module configuration
+    modules:
+      mlp_mimic_phase:
+        _target_: protomotions.agents.common.mlp.MLP_WithNorm
+        _recursive_: False
+        num_in: 2
+        num_out: ${agent.config.model.config.actor.config.mu_model.config.transformer_token_size}
+        config:
+          obs_key: mimic_phase
+          normalize_obs: True
+          norm_clamp_value: 5
+          layers:
+            - units: 256
+              activation: relu
+              use_layer_norm: false
+            - units: 256
+              activation: relu
+              use_layer_norm: false
+
+      mlp_mimic_phase_critic:
+        _target_: protomotions.agents.common.common.Flatten
+        _recursive_: False
+        num_in: 2
+        num_out: ${.num_in}
+        config:
+          obs_key: mimic_phase
+          normalize_obs: True
+          norm_clamp_value: 5
+
+    # Merge phase into actor input models
+    model:
+      config:
+        actor:
+          config:
+            mu_model:
+              config:
+                input_models:
+                  # Keep existing target_poses
+                  mimic_target_poses: ${agent.config.modules.transformer_mimic_target_pose_model}
+                  # Add phase information
+                  mimic_phase: ${agent.config.modules.mlp_mimic_phase}
+
+        # Merge phase into critic input models
+        critic:
+          config:
+            input_models:
+              # Keep existing target_poses
+              mimic_target_poses: ${agent.config.modules.mlp_mimic_target_pose_model}
+              # Add phase information (flattened for multi-headed MLP)
+              mimic_phase: ${agent.config.modules.mlp_mimic_phase_critic}
+
+    # Register both inputs
+    extra_inputs:
+      mimic_target_poses: true
+      mimic_phase: true

@@ -1,0 +1,280 @@
+<mujoco model="rig">
+  <compiler coordinate="local" angle="degree" meshdir="../mesh/bio"/>
+  <default>
+    <joint damping="0.0" armature="0.01" stiffness="0" limited="true" />
+    <geom rgba="0.85 0.85 0.85 1" contype="2" conaffinity="1" condim="3" />
+  </default>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1=".4 .5 .6" rgb2="0 0 0" width="100" height="100" />
+    <texture builtin="checker" height="100" name="texplane" rgb1="0 0 0" rgb2="0.8 0.8 0.8" type="2d" width="100" />
+    <material name="MatPlane" reflectance="0.5" shininess="1" specular="1" texrepeat="60 60" texture="texplane" />
+    <material name="MatBone" rgba="0.9 0.9 0.9 1" />
+    <mesh name="Pelvis_mesh" file="Pelvis.obj"/>
+    <mesh name="Torso_mesh" file="Torso.obj" scale="1 1 1" />
+    <mesh name="Spine_mesh" file="Spine.obj" scale="1 1 1" />
+    <mesh name="Neck_mesh" file="Neck.obj" scale="1 1 1" />
+    <mesh name="Skull_mesh" file="Skull.obj" scale="1 1 1" />
+    <mesh name="L_Shoulder_mesh" file="L_Shoulder.obj" scale="1 1 1" />
+    <mesh name="R_Shoulder_mesh" file="R_Shoulder.obj" scale="1 1 1" />
+    <mesh name="L_Humerus_mesh" file="L_Humerus.obj" scale="1 1 1" />
+    <mesh name="R_Humerus_mesh" file="R_Humerus.obj" scale="1 1 1" />
+    <mesh name="L_Radius_mesh" file="L_Radius.obj" scale="1 1 1" />
+    <mesh name="R_Radius_mesh" file="R_Radius.obj" scale="1 1 1" />
+    <mesh name="L_Hand_mesh" file="L_Hand.obj" scale="1 1 1" />
+    <mesh name="R_Hand_mesh" file="R_Hand.obj" scale="1 1 1" />
+    <mesh name="L_Femur_mesh" file="L_Femur.obj" scale="1 1 1" />
+    <mesh name="R_Femur_mesh" file="R_Femur.obj" scale="1 1 1" />
+    <mesh name="L_Tibia_mesh" file="L_Tibia.obj" scale="1 1 1" />
+    <mesh name="R_Tibia_mesh" file="R_Tibia.obj" scale="1 1 1" />
+    <mesh name="L_Talus_mesh" file="L_Talus.obj" scale="1 1 1" />
+    <mesh name="R_Talus_mesh" file="R_Talus.obj" scale="1 1 1" />
+    <mesh name="L_FootThumb_mesh" file="L_FootThumb.obj" scale="1 1 1" />
+    <mesh name="R_FootThumb_mesh" file="R_FootThumb.obj" scale="1 1 1" />
+    <mesh name="L_FootPinky_mesh" file="L_FootPinky.obj" scale="1 1 1" />
+    <mesh name="R_FootPinky_mesh" file="R_FootPinky.obj" scale="1 1 1" />
+  </asset>
+  <worldbody>
+    <!-- <light cutoff="100" diffuse="1 1 1" dir="0 0 -1.3" directional="true" exponent="1" pos="0 0 1.3" specular=".1 .1 .1" /> -->
+    <!-- <geom name="floor" type="plane" pos="0 0 0" size="100 100 .2" material="MatPlane" rgba="0.8 0.9 0.8 1" contype="1" conaffinity="2" /> -->
+
+    <body name="Pelvis" pos="0 0.0308 0.9809" euler="90 0 0">
+      <freejoint name="Pelvis" />
+      <geom name="Pelvis_geom" type="box" size="0.104125 0.072683 0.064684" pos="0 0 0" mass="3.8" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+      <geom name="Pelvis_visual" type="mesh" mesh="Pelvis_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" euler="0 0 0" />
+      <body name="Spine" pos="0 0.0866 -0.0126" euler="0 0 0">
+        <joint name="Spine_x" type="hinge" axis="1 0 0" stiffness="1000" damping="100" armature="0.02" range="-30 60" />
+        <joint name="Spine_y" type="hinge" axis="0 1 0" stiffness="1000" damping="100" armature="0.02" range="-30 30" />
+        <joint name="Spine_z" type="hinge" axis="0 0 1" stiffness="1000" damping="100" armature="0.02" range="-20 20" />
+        <geom name="Spine_geom" type="box" size="0.058525 0.048794 0.049209" mass="3" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+        <geom name="Spine_visual" type="mesh" mesh="Spine_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+        <body name="Torso" pos="0 0.1086 -0.0064" euler="0 0 0">
+          <joint name="Torso_x" type="hinge" axis="1 0 0" stiffness="1000" damping="100" armature="0.02" range="-30 60" />
+          <joint name="Torso_y" type="hinge" axis="0 1 0" stiffness="1000" damping="100" armature="0.02" range="-30 30" />
+          <joint name="Torso_z" type="hinge" axis="0 0 1" stiffness="1000" damping="100" armature="0.02" range="-20 20" />
+          <geom name="Torso_geom" type="box" size="0.089909 0.109027 0.066871" mass="9.6" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+          <geom name="Torso_visual" type="mesh" mesh="Torso_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+          <body name="Neck" pos="0 0.3083 0.0062" euler="0 0 0">
+            <joint name="Neck_x" type="hinge" axis="1 0 0" stiffness="500" damping="50" armature="0.02" range="-30 45" />
+            <joint name="Neck_y" type="hinge" axis="0 1 0" stiffness="500" damping="50" armature="0.02" range="-30 45" />
+            <joint name="Neck_z" type="hinge" axis="0 0 1" stiffness="500" damping="50" armature="0.02" range="-30 120" />
+            <geom name="Neck_geom" type="box" size="0.039657 0.036389 0.032590" mass="0.244" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+            <geom name="Neck_visual" type="mesh" mesh="Neck_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+            <body name="Head" pos="0 0.0808 0.035" euler="0 0 0">
+              <joint name="Head_x" type="hinge" axis="1 0 0" stiffness="500" damping="50" armature="0.02" range="-30 45" />
+              <joint name="Head_y" type="hinge" axis="0 1 0" stiffness="500" damping="50" armature="0.02" range="-30 45" />
+              <joint name="Head_z" type="hinge" axis="0 0 1" stiffness="500" damping="50" armature="0.02" range="-30 120" />
+              <geom name="Head_geom" type="box" size="0.056457 0.057178 0.058313" pos="0 0.1 0" mass="1" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+              <geom name="Head_visual" type="mesh" mesh="Skull_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+            </body>
+          </body>
+
+          <body name="ShoulderL" pos="0.0147 0.2774 0.0117" euler="0 0 0">
+            <joint name="L_Shoulder_x" type="hinge" axis="1 0 0" stiffness="500" damping="50" armature="0.01" range="-30 30" />
+            <joint name="L_Shoulder_y" type="hinge" axis="0 1 0" stiffness="500" damping="50" armature="0.01" range="-30 30" />
+            <joint name="L_Shoulder_z" type="hinge" axis="0 0 1" stiffness="500" damping="50" armature="0.01" range="-30 30" />
+            <geom name="ShoulderL_geom" type="capsule" fromto="0 0 0 0.1848 -0.0185 0.0028" size="0.0517" mass="0.718" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+            <geom name="ShoulderL_visual" type="mesh" mesh="L_Shoulder_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+            <body name="ArmL" pos="0.1848 -0.0185 0.0028" euler="0 0 0">
+              <joint name="L_Elbow_x" type="hinge" axis="1 0 0" stiffness="500" damping="50" armature="0.01" range="-120 120" />
+              <joint name="L_Elbow_y" type="hinge" axis="0 1 0" stiffness="500" damping="50" armature="0.01" range="-120 120" />
+              <joint name="L_Elbow_z" type="hinge" axis="0 0 1" stiffness="500" damping="50" armature="0.01" range="-120 120" />
+              <geom name="ArmL_geom" type="capsule" fromto="0 0 0 0.3239 0.0257 0.0248" size="0.0405" mass="0.6" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+              <geom name="ArmL_visual" type="mesh" mesh="L_Humerus_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+              <body name="ForeArmL" pos="0.3239 0.0257 0.0248" euler="0 0 0">
+                <joint name="ForeArmL_y" type="hinge" axis="0 1 0" stiffness="500" damping="50" armature="0.01" range="-150 0" />
+                <geom name="ForeArmL_geom" type="capsule" fromto="0 0 0 0.2868 0.0087 0.0299" size="0.0318" mass="0.3" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+                <geom name="ForeArmL_visual" type="mesh" mesh="L_Radius_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+                <body name="HandL" pos="0.2868 0.0087 0.0299" euler="0 0 0">
+                    <joint name="HandL_x" type="hinge" axis="1 0 0" stiffness="300" damping="30" armature="0.01" range="-40 45" />
+                    <joint name="HandL_y" type="hinge" axis="0 1 0" stiffness="300" damping="30" armature="0.01" range="-40 45" />
+                    <joint name="HandL_z" type="hinge" axis="0 0 1" stiffness="300" damping="30" armature="0.01" range="-40 45" />
+                  <geom name="HandL_geom" type="box" size="0.0585 0.0158 0.0538" mass="0.1" rgba="0.2 0.7 0.9 0" group="1" contype="2" conaffinity="1" />
+                  <geom name="HandL_visual" type="mesh" mesh="L_Hand_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+                </body>
+              </body>
+            </body>
+          </body>
+
+          <body name="ShoulderR" pos="-0.0147 0.2774 0.0117" euler="0 0 0">
+            <joint name="R_Shoulder_x" type="hinge" axis="1 0 0" stiffness="500" damping="50" armature="0.01"  range="-30 30" />
+            <joint name="R_Shoulder_y" type="hinge" axis="0 1 0" stiffness="500" damping="50" armature="0.01"  range="-30 30" />
+            <joint name="R_Shoulder_z" type="hinge" axis="0 0 1" stiffness="500" damping="50" armature="0.01"  range="-30 30" />
+            <geom name="ShoulderR_geom" type="capsule" fromto="0 0 0 -0.1848 -0.0185 0.0028" size="0.0531" mass="0.718" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+            <geom name="ShoulderR_visual" type="mesh" mesh="R_Shoulder_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+            <body name="ArmR" pos="-0.1848 -0.0185 0.0028" euler="0 0 0">
+              <joint name="R_Elbow_x" type="hinge" axis="1 0 0" stiffness="500" damping="50" armature="0.01"  range="-120 120" />
+              <joint name="R_Elbow_y" type="hinge" axis="0 1 0" stiffness="500" damping="50" armature="0.01"  range="-120 120" />
+              <joint name="R_Elbow_z" type="hinge" axis="0 0 1" stiffness="500" damping="50" armature="0.01"  range="-120 120" />
+              <geom name="ArmR_geom" type="capsule" fromto="0 0 0 -0.3239 0.0257 0.0248" size="0.0408" mass="0.6" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+              <geom name="ArmR_visual" type="mesh" mesh="R_Humerus_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+              <body name="ForeArmR" pos="-0.3239 0.0257 0.0248" euler="0 0 0">
+                <joint name="ForeArmR_y" type="hinge" axis="0 1 0" stiffness="500" damping="50" armature="0.01"  range="0 150" />
+                <geom name="ForeArmR_geom" type="capsule" fromto="0 0 0 -0.2868 0.0083 0.0299" size="0.0326" mass="0.3" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+                <geom name="ForeArmR_visual" type="mesh" mesh="R_Radius_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+                <body name="HandR" pos="-0.2868 0.0083 0.0299" euler="0 0 0">
+                    <joint name="HandR_x" type="hinge" axis="1 0 0" stiffness="300" damping="30" armature="0.01"  range="-40 45" />
+                    <joint name="HandR_y" type="hinge" axis="0 1 0" stiffness="300" damping="30" armature="0.01"  range="-40 45" />
+                    <joint name="HandR_z" type="hinge" axis="0 0 1" stiffness="300" damping="30" armature="0.01"  range="-40 45" />
+                  <geom name="HandR_geom" type="box" size="0.0569 0.0164 0.0546" mass="0.1" rgba="0.2 0.7 0.9 0" group="1" contype="2" conaffinity="1" />
+                  <geom name="HandR_visual" type="mesh" mesh="R_Hand_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+
+      </body>
+
+      <body name="FemurL" pos="0.0903 -0.0472 0.0192" euler="0 0 0">
+        <joint name="L_Hip_x" type="hinge" axis="1 0 0" stiffness="800" damping="80" armature="0.01" range="-120 120" />
+        <joint name="L_Hip_y" type="hinge" axis="0 1 0" stiffness="800" damping="80" armature="0.01" range="-120 120" />
+        <joint name="L_Hip_z" type="hinge" axis="0 0 1" stiffness="800" damping="80" armature="0.01" range="-120 120" />
+        <geom name="FemurL_geom" type="capsule" fromto="0 0 0 0.0092 -0.395 0.0013" size="0.0615" mass="1.5" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+        <geom name="FemurL_visual" type="mesh" mesh="L_Femur_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+        <body name="TibiaL" pos="0.0092 -0.395 0.0013" euler="0 0 0">
+          <joint name="L_Knee" type="hinge" axis="1 0 0" stiffness="800" damping="80" armature="0.01" range="0 160" />
+          <geom name="TibiaL_geom" type="capsule" fromto="0 0 0 -0.0195 -0.4611 -0.0316" size="0.0541" mass="1.2" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+          <geom name="TibiaL_visual" type="mesh" mesh="L_Tibia_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+          <body name="TalusL" pos="-0.0195 -0.4611 -0.0316" euler="0 0 0">
+            <joint name="L_Ankle_x" type="hinge" axis="1 0 0" stiffness="800" damping="80" armature="0.01" range="-45 45" />
+            <joint name="L_Ankle_y" type="hinge" axis="0 1 0" stiffness="800" damping="80" armature="0.01" range="-45 45" />
+            <joint name="L_Ankle_z" type="hinge" axis="0 0 1" stiffness="800" damping="80" armature="0.01" range="-45 45" />
+            <geom name="TalusL_geom" type="box" size="0.0483 0.0464 0.085" mass="0.074" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+            <geom name="TalusL_visual" type="mesh" mesh="L_Talus_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+            <body name="FootThumbL" pos="0.0415 -0.066 0.0913" euler="0 0 0">
+              <joint name="L_ToeThumb" type="hinge" axis="1 0 0" stiffness="500" damping="50" armature="0.01" range="-45 45" />
+              <geom name="FootThumbL_geom" type="box" size="0.0478 0.02 0.0496" mass="0.1" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+              <geom name="FootThumbL_visual" type="mesh" mesh="L_FootThumb_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+            </body>
+
+            <body name="FootPinkyL" pos="-0.0044 -0.0658 0.1095" euler="0 0 0">
+              <joint name="L_ToePinky" type="hinge" axis="1 0 0" stiffness="500" damping="50" armature="0.01" range="-45 45" />
+              <geom name="FootPinkyL_geom" type="box" size="0.0478 0.02 0.0496" mass="0.1" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+              <geom name="FootPinkyL_visual" type="mesh" mesh="L_FootPinky_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <body name="FemurR" pos="-0.0903 -0.0472 0.0192" euler="0 0 0">
+        <joint name="R_Hip_x" type="hinge" axis="1 0 0" stiffness="800" damping="80" armature="0.01" range="-120 120" />
+        <joint name="R_Hip_y" type="hinge" axis="0 1 0" stiffness="800" damping="80" armature="0.01" range="-120 120" />
+        <joint name="R_Hip_z" type="hinge" axis="0 0 1" stiffness="800" damping="80" armature="0.01" range="-120 120" />
+        <geom name="FemurR_geom" type="capsule" fromto="0 0 0 -0.0092 -0.395 0.0013" size="0.0606" mass="1.5" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+        <geom name="FemurR_visual" type="mesh" mesh="R_Femur_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+        <body name="TibiaR" pos="-0.0092 -0.395 0.0013" euler="0 0 0">
+          <joint name="R_Knee" type="hinge" axis="1 0 0" stiffness="800" damping="80" armature="0.01" range="0 160" />
+          <geom name="TibiaR_geom" type="capsule" fromto="0 0 0 0.0195 -0.4611 -0.0316" size="0.0541" mass="1.2" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+          <geom name="TibiaR_visual" type="mesh" mesh="R_Tibia_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+          <body name="TalusR" pos="0.0195 -0.4611 -0.0316" euler="0 0 0">
+            <joint name="R_Ankle_x" type="hinge" axis="1 0 0" stiffness="800" damping="80" armature="0.01" range="-45 45" />
+            <joint name="R_Ankle_y" type="hinge" axis="0 1 0" stiffness="800" damping="80" armature="0.01" range="-45 45" />
+            <joint name="R_Ankle_z" type="hinge" axis="0 0 1" stiffness="800" damping="80" armature="0.01" range="-45 45" />
+            <geom name="TalusR_geom" type="box" size="0.0483 0.0478 0.0865" mass="0.074" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+            <geom name="TalusR_visual" type="mesh" mesh="R_Talus_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+
+            <body name="FootThumbR" pos="0.0019 -0.0575 0.1111" euler="0 0 0">
+              <joint name="R_ToeThumb" type="hinge" axis="1 0 0" stiffness="500" damping="50" armature="0.01" range="-45 45" />
+              <geom name="FootThumbR_geom" type="box" size="0.0479 0.0216 0.0493" mass="0.1" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+              <geom name="FootThumbR_visual" type="mesh" mesh="R_FootThumb_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+            </body>
+
+            <body name="FootPinkyR" pos="-0.0427 -0.0634 0.0913" euler="0 0 0">
+              <joint name="R_ToePinky" type="hinge" axis="1 0 0" stiffness="500" damping="50" armature="0.01" range="-45 45" />
+              <geom name="FootPinkyR_geom" type="box" size="0.0479 0.0216 0.0493" mass="0.1" rgba="0 0 0 0" group="1" contype="2" conaffinity="1" />
+              <geom name="FootPinkyR_visual" type="mesh" mesh="R_FootPinky_mesh" material="MatBone" contype="0" conaffinity="0" pos="0 0 0" />
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor name="Spine_x" joint="Spine_x" gear="500"/>
+    <motor name="Spine_y" joint="Spine_y" gear="500"/>
+    <motor name="Spine_z" joint="Spine_z" gear="500"/>
+    <motor name="Torso_x" joint="Torso_x" gear="500"/>
+    <motor name="Torso_y" joint="Torso_y" gear="500"/>
+    <motor name="Torso_z" joint="Torso_z" gear="500"/>
+    <motor name="Neck_x" joint="Neck_x" gear="500"/>
+    <motor name="Neck_y" joint="Neck_y" gear="500"/>
+    <motor name="Neck_z" joint="Neck_z" gear="500"/>
+    <motor name="Head_x" joint="Head_x" gear="500"/>
+    <motor name="Head_y" joint="Head_y" gear="500"/>
+    <motor name="Head_z" joint="Head_z" gear="500"/>
+    <motor name="L_Shoulder_x" joint="L_Shoulder_x" gear="500"/>
+    <motor name="L_Shoulder_y" joint="L_Shoulder_y" gear="500"/>
+    <motor name="L_Shoulder_z" joint="L_Shoulder_z" gear="500"/>
+    <motor name="L_Elbow_x" joint="L_Elbow_x" gear="500"/>
+    <motor name="L_Elbow_y" joint="L_Elbow_y" gear="500"/>
+    <motor name="L_Elbow_z" joint="L_Elbow_z" gear="500"/>
+    <motor name="ForeArmL_y" joint="ForeArmL_y" gear="500"/>
+    <motor name="HandL_x" joint="HandL_x" gear="500"/>
+    <motor name="HandL_y" joint="HandL_y" gear="500"/>
+    <motor name="HandL_z" joint="HandL_z" gear="500"/>
+
+    <motor name="R_Shoulder_x" joint="R_Shoulder_x" gear="500"/>
+    <motor name="R_Shoulder_y" joint="R_Shoulder_y" gear="500"/>
+    <motor name="R_Shoulder_z" joint="R_Shoulder_z" gear="500"/>
+    <motor name="R_Elbow_x" joint="R_Elbow_x" gear="500"/>
+    <motor name="R_Elbow_y" joint="R_Elbow_y" gear="500"/>
+    <motor name="R_Elbow_z" joint="R_Elbow_z" gear="500"/>
+    <motor name="ForeArmR_y" joint="ForeArmR_y" gear="500"/>
+    <motor name="HandR_x" joint="HandR_x" gear="500"/>
+    <motor name="HandR_y" joint="HandR_y" gear="500"/>
+    <motor name="HandR_z" joint="HandR_z" gear="500"/>
+
+    <motor name="L_Hip_x" joint="L_Hip_x" gear="500"/>
+    <motor name="L_Hip_y" joint="L_Hip_y" gear="500"/>
+    <motor name="L_Hip_z" joint="L_Hip_z" gear="500"/>
+    <motor name="L_Knee" joint="L_Knee" gear="500"/>
+    <motor name="L_Ankle_x" joint="L_Ankle_x" gear="500"/>
+    <motor name="L_Ankle_y" joint="L_Ankle_y" gear="500"/>
+    <motor name="L_Ankle_z" joint="L_Ankle_z" gear="500"/>
+    <motor name="L_ToeThuml" joint="L_ToeThumb" gear="500"/>
+    <motor name="L_ToePinky" joint="L_ToePinky" gear="500"/>
+
+
+    <motor name="R_Hip_x" joint="R_Hip_x" gear="500"/>
+    <motor name="R_Hip_y" joint="R_Hip_y" gear="500"/>
+    <motor name="R_Hip_z" joint="R_Hip_z" gear="500"/>
+    <motor name="R_Knee" joint="R_Knee" gear="500"/>
+    <motor name="R_Ankle_x" joint="R_Ankle_x" gear="500"/>
+    <motor name="R_Ankle_y" joint="R_Ankle_y" gear="500"/>
+    <motor name="R_Ankle_z" joint="R_Ankle_z" gear="500"/>
+    <motor name="R_ToeThuml" joint="R_ToeThumb" gear="500"/>
+    <motor name="R_ToePinky" joint="R_ToePinky" gear="500"/>
+    
+  </actuator>
+  <contact>
+    <exclude body1="Torso" body2="Neck"/>
+    <exclude body1="Head" body2="Neck"/>
+    <exclude body1="TibiaL" body2="TalusL"/>
+    <exclude body1="TibiaL" body2="FootThumbL"/>
+    <exclude body1="TibiaL" body2="FootPinkyL"/>
+
+    <exclude body1="TibiaR" body2="TalusR"/>
+    <exclude body1="TibiaR" body2="FootThumbR"/>
+    <exclude body1="TibiaR" body2="FootPinkyR"/>
+
+    <exclude body1="ShoulderL" body2="Neck"/>
+    <exclude body1="ShoulderR" body2="Neck"/>
+  </contact>
+  <sensor/>
+  <size njmax="800" nconmax="800" />
+</mujoco>

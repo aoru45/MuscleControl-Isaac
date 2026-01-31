@@ -1,0 +1,31 @@
+# @package _global_
+
+defaults:
+  - /env/mimic_dual
+
+  - /agent/mimic/agent_dual_supervised
+  - /agent/ppo/models/transformer_actor
+  - /agent/ppo/models/mlp_critic_large
+
+  - /agent/mimic/models/transformer_actor_target_pose
+  - /agent/mimic/models/mlp_critic_target_pose
+
+  - /agent/mimic/options/global_tracking
+  - /agent/mimic/options/early_termination_tracking_err
+
+env:
+  config:
+    mimic_target_pose:
+      type: max-coords-future-rel
+      with_time: true
+      num_future_steps: 15
+
+robot:
+  control:
+    control_type: proportional
+    use_biased_controller: False
+    map_actions_to_pd_range: True
+
+agent:
+  config:
+    use_student_for_eval: true

@@ -1,0 +1,31 @@
+# @package _global_
+
+motion_manager:
+  fixed_motion_per_env: False
+  fixed_motion_id: null
+  motion_index_offset: null
+
+  motion_sampling:
+    # By default, without dynamic sampling the motion manager picks a random motion
+    # By default, this sets 20% chance to sample an initial pose.
+    # Especially for AMP this helps prevent the agent from immediately getting stuck in a local-minima.
+    init_start_prob: 0.2
+
+    failure_aware_sampling: false
+    num_start_time_bins: 32
+    failure_aware_sampling_ratio: 0.5
+
+    # < 1.0: strong emphasis on difficult positions
+    # = 1.0: moderate emphasis (default)
+    # > 1.0: weak emphasis, more uniform distribution
+    failure_aware_temperature: 0.5
+
+# Globally accessible parameters
+eval_overrides:
+  motion_manager:
+    fixed_motion_per_env: False
+
+    motion_sampling:
+      init_start_prob: 1.
+      failure_aware_sampling: false
+

@@ -1,0 +1,67 @@
+# @package _global_
+env:
+  config:
+    mimic_reward_config:
+      component_weights:
+        # Global tracking - balanced for aerodynamic control
+        gr_rew_w: 0.3     # Global rotation - increased for better orientation
+        gt_rew_w: 0.35    # Global translation - slightly reduced for more freedom
+        gv_rew_w: 0.12    # Global velocity - INCREASED for jump phase control
+        gav_rew_w: 0.12   # Global angular velocity - INCREASED for spin control
+
+        # Critical: Foot and key body parts control (essential for landing)
+        kb_rew_w: 0.2     # Key bodies (feet, hands) - CRUCIAL for landing, slightly increased
+
+        # Joint-level control for smooth execution
+        lr_rew_w: 0.1     # Local/relative rotation - increased for better precision
+        dv_rew_w: 0.06    # DoF velocity - smooth joint motion
+
+        # Height control - CRITICAL FIX
+        # Increased weight from 0.12 to 0.18 to constrain jump height
+        rh_rew_w: 0.18    # Root height - SIGNIFICANTLY INCREASED
+
+        # Unused components
+        rv_rew_w: 0.0     # Root velocity
+        rav_rew_w: 0.2    # Root angular velocity
+        rt_rew_w: 0.0     # Root translation
+
+        # Regularization
+        pow_rew_w: 0.00001  # Power consumption penalty
+
+        # ASAP feet rewards - prevent unstable feet contact
+        feet_ori_rew_w: 0.02    # Feet orientation (prevent tilted feet) - doubled
+        feet_slippage_rew_w: 0.02  # Feet slippage (prevent sliding on contact) - doubled
+
+      component_coefficients:
+        # Position/orientation penalties
+        gt_rew_c: -70     # Global translation
+        kb_rew_c: -12     # Key bodies - feet landing is critical
+        gr_rew_c: -10     # Global rotation - slightly stricter
+        rt_rew_c: 0       # Unused
+        rh_rew_c: -50     # Root height - SIGNIFICANTLY STRICTER (from -30 to -50)
+
+        # Velocity penalties - increased for better phase control
+        rv_rew_c: 0       # Unused
+        rav_rew_c: 0      # Unused
+        gv_rew_c: -0.02   # Global velocity - doubled for landing control
+        gav_rew_c: -0.02  # Global angular velocity - doubled for spin control
+
+        # Joint-level penalties
+        lr_rew_c: -0.3    # Local rotation matching - slightly stricter
+        dv_rew_c: -0.01   # DoF velocity matching - increased for smoother motion
+
+        # ASAP feet reward coefficients
+        feet_ori_c: -2.5   # Feet orientation penalty - stricter for stability
+        feet_slippage_c: -1.5  # Feet slippage penalty - stricter
+
+      # Additional backflip-specific settings
+      relative_kb_pos: False      # Use absolute positions for feet
+      add_rr_to_lr: True          # Include relative rotation
+      mean_before_exp: True       # Numerical stability
+      positive_constant: 0.1      # Small positive baseline to encourage exploration
+
+# At evaluation, keep early termination disabled to get true performance
+eval_overrides:
+  env:
+    config:
+      mimic_early_termination: null
