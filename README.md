@@ -1,5 +1,4 @@
 # MuscleControl-Isaac
-
 An IsaacLab-based repository for **muscle-activation control** and **muscle/skeleton visualization**. This project extends the IsaacLab ecosystem with muscle-driven human models and training/evaluation pipelines for research in biomechanical control, imitation learning, and motion generation.
 
 ![Diffusion Forcing Control](assets/1.png)
@@ -9,6 +8,19 @@ An IsaacLab-based repository for **muscle-activation control** and **muscle/skel
 - Visualization: muscle and skeleton mesh rendering for analysis and debugging.
 - Training & evaluation: integrated scripts and entry points for experiments.
 - DiffusionForcing Control: use diffusion forcing to guide and control.
+## Install
+1. Install IsaacLab
+Once IsaacLab is installed, from the repository root install the ProtoMotions package and its dependencies with:
+
+Set PYTHON_PATH to point at the isaaclab.sh script
+For Linux: alias PYTHON_PATH="<isaac_lab_path> -p"
+# For example: alias PYTHON_PATH="/home/USERNAME/IsaacLab/isaaclab.sh -p"
+Once IsaacLab is installed, from the protomotions repository root, install the Physical Animation package and its dependencies with:
+PYTHON_PATH -m pip install -e .
+PYTHON_PATH -m pip install -r requirements_isaaclab.txt
+PYTHON_PATH -m pip install -e isaac_utils
+PYTHON_PATH -m pip install -e poselib
+
 ## Training
 ### PD(phase 1) 
 ```
