@@ -18,10 +18,12 @@ For Linux: alias PYTHON_PATH="<isaac_lab_path> -p"
 For example: alias PYTHON_PATH="/home/USERNAME/IsaacLab/isaaclab.sh -p"
 
 Once IsaacLab is installed, from the protomotions repository root, install the Physical Animation package and its dependencies with:
+```
 PYTHON_PATH -m pip install -e .
 PYTHON_PATH -m pip install -r requirements_isaaclab.txt
 PYTHON_PATH -m pip install -e isaac_utils
 PYTHON_PATH -m pip install -e poselib
+```
 
 ## Training
 ### PD(phase 1) 
