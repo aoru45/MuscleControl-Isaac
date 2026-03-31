@@ -10,13 +10,17 @@ An IsaacLab-based repository for **muscle-activation control** and **muscle/skel
 - DiffusionForcing Control: use diffusion forcing to guide and control.
 ## Install
 1. Install IsaacLab
-Once IsaacLab is installed, from the repository root install the ProtoMotions package and its dependencies with:
+2. Once IsaacLab is installed, from the repository root install the ProtoMotions package and its dependencies with:
 
 Set PYTHON_PATH to point at the isaaclab.sh script
-For Linux: alias PYTHON_PATH="<isaac_lab_path> -p"
-
-For example: alias PYTHON_PATH="/home/USERNAME/IsaacLab/isaaclab.sh -p"
-
+For Linux: 
+```
+alias PYTHON_PATH="<isaac_lab_path> -p"
+```
+For example: 
+```
+alias PYTHON_PATH="/home/USERNAME/IsaacLab/isaaclab.sh -p"
+```
 Once IsaacLab is installed, from the protomotions repository root, install the Physical Animation package and its dependencies with:
 ```
 PYTHON_PATH -m pip install -e .
